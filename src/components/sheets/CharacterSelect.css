@@ -1,0 +1,10 @@
+section, h3{
+    border: double
+}
+.flexdown{
+    display: flex;
+    flex-flow: column;
+}
+.flexside{
+    display: flex
+}
