@@ -1,8 +1,10 @@
 import react from "react";
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth";
 import CharacterRepository from "../../repositories/CharacterRepository";
+import LevelRepository from "../../repositories/LevelRepository";
+import SkillsRepository from "../../repositories/SkillsRepository";
 
-export const CreateCharacter = ({refresh}) => {
+export const CreateCharacter = ({ refresh }) => {
     const { getCurrentUser } = useSimpleAuth()
     const postCharacter = () => {
         const newCharacter = {
@@ -16,10 +18,26 @@ export const CreateCharacter = ({refresh}) => {
             "wis": 0,
             "cha": 0,
             "userId": getCurrentUser().id,
-            "raceId": 1
+            "raceId": 1,
+            "HDRoll": 0,
         }
         CharacterRepository.addCharacter(newCharacter).then(
-        CharacterRepository.getAll(getCurrentUser().id).then(refresh))
+            res => {
+                const charId = res.id
+                SkillsRepository.getAll().then(res => {
+                    const skills = res
+                    skills.forEach(re => SkillsRepository.addCharacterSkills({ skillId: re.id, characterId: charId, bonus:0 })) //generates the objects to track a characters total points for a given skill
+                    LevelRepository.addLevel(charId, 1).then(levelRes => //creates the character's first level
+                        skills.forEach(skill => 
+                            SkillsRepository.addLevelSkills({ //creates the objects to track a given levels allocation of skill points
+                                skillId: skill.id, 
+                                levelId: levelRes.id, 
+                                points: 0 }
+                            )))
+                })
+                CharacterRepository.getAll(getCurrentUser().id).then(refresh)
+            }
+        )
     }
 
     return <>

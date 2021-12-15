@@ -35,5 +35,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "bootstrap": "^4.4.1",
+    "nss-json-server": "^1.0.5",
+    "raw-loader": "^4.0.0",
+    "react-modal": "^3.11.1",
+    "react-router-dom": "^5.2.1",
+    "typescript": "^4.4.2",
+    "webpack-cli": "^3.3.10"
   }
 }

@@ -12,6 +12,7 @@ export const NavBar = () => {
     const { isAuthenticated, logout, getCurrentUser } = useSimpleAuth()
     const history = useHistory()
     const location = useLocation()
+    const whatever = useParams()
     const test = location.pathname.split("/")
     const characterId = test.length===3 ? test[1] : undefined 
 
