@@ -1,16 +1,16 @@
 import react, { useLayoutEffect, useState } from "react";
 
 
-export const CharacterSelect = ({ characters }) => {
+export const CharacterSelectDelete = ({ characters, deleter }) => {
     const [charList, setCharList] = useState()
     useLayoutEffect(() => { setCharList(characters) }, [characters])
     return <>
         <select defaultValue=""
-            name="character"
+            name={deleter? "characterDelete":"characterSelect"}
             className="form-control small"
         >
             <option value="">
-                Select a character
+                Select a character {deleter && "to delete"}
             </option>
             {
                 characters.map(o => <option key={o.id} value={o.id}>{o.name}</option>)

@@ -1,9 +1,6 @@
 import Settings from "./Settings"
 import { fetchIt } from "./Fetch"
 import useSimpleAuth from "../hooks/ui/useSimpleAuth"
-import SkillsRepository from "./SkillsRepository"
-import LevelRepository from "./LevelRepository"
-import ClassRepository from "./ClassRepository"
 
 // const expandAnimalUser = (animal, users) => {
 //     animal.animalOwners = animal.animalOwners.map(ao => {
@@ -17,33 +14,13 @@ import ClassRepository from "./ClassRepository"
 //     })
 
 //     return animal
-const expandCharacterTraits = (character, classes, skills, feats) => {
-    character.levels = character.levels.map(level => {
-        level.class = classes.find(classs => classs.id === level.classId)
-        return level
-    })
-    character.characterSkills = character.characterSkills.map(skill => {
-        skill.name = skills.find(skilll => skilll.id === skill.skillId).name
-        return skill
-    })
-    return character
-}
+// }
 
 export default {
     async get(id) {
-        return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels`)
+        return await fetchIt(`${Settings.remoteURL}/skills/${id}`)
             .then(res => res)
-    }
-    ,
-    async getComplicated(id) {
-        const skills = await SkillsRepository.getAll()
-        const classes = await ClassRepository.getAll()
-        return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels&_embed=characterSkills`)
-            .then(character => {
-                character = expandCharacterTraits(character, classes, skills)
-                return character
-            })
-    }
+            }
     ,
     // async searchByName(query) {
     //     const users = await OwnerRepository.getAll() //copied the extra code for expansion from get and getall to make sure I could get the full info in the search
@@ -57,25 +34,28 @@ export default {
     //     })
     //     return animals
     // },
-    async delete(id) {
-        await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels`).then(res => res.levels.forEach(level => LevelRepository.delete(level.id)))
-        return await fetchIt(`${Settings.remoteURL}/characters/${id}`, "DELETE")
+    // async delete(id) {
+    //     return await fetchIt(`${Settings.remoteURL}/animals/${id}`, "DELETE")
+    // },
+    async getAll() {
+        return await fetchIt(`${Settings.remoteURL}/skills`)
     },
-    async getAll(playerId) {
-        let userCharacters = []
-        const characters = await fetchIt(`${Settings.remoteURL}/characters`)
-            .then(data => {
-                userCharacters = data.filter(char => char.userId === playerId)
-            })
-        return userCharacters
-    },
-    async addCharacter(newCharacter) {
+    async addCharacterSkills(characterSkill) {
         return await fetchIt(
-            `${Settings.remoteURL}/characters`,
+            `${Settings.remoteURL}/characterSkills`,
             "POST",
-            JSON.stringify(newCharacter)
+            JSON.stringify(characterSkill)
         )
     },
+    async addLevelSkills(levelSkill) {
+        return await fetchIt(
+            `${Settings.remoteURL}/levelSkills`,
+            "POST",
+            JSON.stringify(levelSkill)
+        )
+    },
+
+
     // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers
     //     return await fetchIt(
     //         `${Settings.remoteURL}/animalCaretakers`,
