@@ -8,3 +8,12 @@ section, h3{
 .flexside{
     display: flex
 }
+.statgridColumn1{
+    width: 5rem
+}
+.statgridColumn2{
+    width: 5rem
+}
+.statgridColumn3{
+    width: 5rem
+}

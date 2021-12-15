@@ -4,6 +4,7 @@ export const DiceList = ({ rolls }) => {
     const [results, CalculateResults] = useState([])
     const [diceString, setString] = useState("")
     useEffect(() => {
+        CalculateResults([])
         CalculateResults(rolls)
         if(rolls[0]) setString(displayDice(rolls))
     }, [rolls])

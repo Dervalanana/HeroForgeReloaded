@@ -19,11 +19,11 @@ import ClassRepository from "./ClassRepository"
 //     return animal
 const expandCharacterTraits = (character, classes, skills, feats) => {
     character.levels = character.levels.map(level => {
-        level.class = classes.find(classs => classs.id === level.classId)
+        level.class = classes.find(classs => classs.id === level.classId) //attaches the whole of the class information.
         return level
     })
     character.characterSkills = character.characterSkills.map(skill => {
-        skill.name = skills.find(skilll => skilll.id === skill.skillId).name
+        skill.name = skills.find(skilll => skilll.id === skill.skillId).name //only need the name, because bonus is updated in other modules
         return skill
     })
     return character
@@ -32,6 +32,10 @@ const expandCharacterTraits = (character, classes, skills, feats) => {
 export default {
     async get(id) {
         return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels`)
+            .then(res => res)
+    },
+    async getWithRace(id) {
+        return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels&_expand=race`)
             .then(res => res)
     }
     ,
@@ -45,6 +49,10 @@ export default {
             })
     }
     ,
+    async getRace(){
+        return await fetchIt(`${Settings.remoteURL}/races`)
+            .then(res => res)
+    },
     // async searchByName(query) {
     //     const users = await OwnerRepository.getAll() //copied the extra code for expansion from get and getall to make sure I could get the full info in the search
     //     const animals = await fetchIt(`${Settings.remoteURL}/animals?_embed=animalOwners&_embed=treatments&_embed=animalCaretakers&_expand=location&name_like=${query}`)
@@ -76,18 +84,11 @@ export default {
             JSON.stringify(newCharacter)
         )
     },
-    // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers
-    //     return await fetchIt(
-    //         `${Settings.remoteURL}/animalCaretakers`,
-    //         "POST",
-    //         JSON.stringify(newAnimalCaretaker)
-    //     )
-    // },
-    // async updateAnimal(editedAnimal) {
-    //     return await fetchIt(
-    //         `${Settings.remoteURL}/animals/${editedAnimal.id}`,
-    //         "PUT",
-    //         JSON.stringify(editedAnimal)
-    //     )
-    // }
+    async updateCharacter(updatedCharacter) {
+        return await fetchIt(
+            `${Settings.remoteURL}/characters/${updatedCharacter.id}`,
+            "PUT",
+            JSON.stringify(updatedCharacter)
+        )
+    }
 }

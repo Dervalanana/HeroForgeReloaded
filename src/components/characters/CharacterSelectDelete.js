@@ -1,9 +1,9 @@
-import react, { useLayoutEffect, useState } from "react";
+import react, { useEffect, useState } from "react";
 
 
 export const CharacterSelectDelete = ({ characters, deleter }) => {
     const [charList, setCharList] = useState()
-    useLayoutEffect(() => { setCharList(characters) }, [characters])
+    useEffect(() => { setCharList(characters) }, [characters])
     return <>
         <select defaultValue=""
             name={deleter? "characterDelete":"characterSelect"}
