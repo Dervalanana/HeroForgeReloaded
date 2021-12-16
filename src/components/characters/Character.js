@@ -13,26 +13,29 @@ export const Character = () => {
     const history = useHistory()
     const { characterId } = useParams() //this is going to be a string by default
     const [currentCharacter, setCharacter] = useState()
-    const syncCharacters= () => { CharacterRepository.getAll(getCurrentUser().id).then(setCharacters) }
+    const syncCharacters = () => { CharacterRepository.getAll(getCurrentUser().id).then(setCharacters) }
     const complicateCharacter = (id) => characterId && CharacterRepository.getComplicated(id).then(setCharacter)
 
     useEffect(() => {
-         //get all characters you're allowed to see
-         syncCharacters()
-         complicateCharacter(characterId)
+        //get all characters you're allowed to see
+        syncCharacters()
+        complicateCharacter(characterId)
     }, [])
-    
+
     const changeCharacter = () => {
-        document.querySelector(`[name=characterSelect]`).value? //throws a big error if it can't find anything
-        history.push(`/${document.querySelector(`[name=characterSelect]`).value}/character`):
-        history.push("/character")
+        document.querySelector(`[name=characterSelect]`).value ? //throws a big error if it can't find anything
+            history.push(`/${document.querySelector(`[name=characterSelect]`).value}/character`) :
+            history.push("/character")
         complicateCharacter(document.querySelector(`[name=characterSelect]`).value)
     }
     const deleteCharacter = () => {
-        CharacterRepository.delete(document.querySelector(`[name=characterDelete]`).value).then(() => syncCharacters())
-        document.querySelector(`[name=characterDelete]`).value !== characterId? //throws a big error if it can't find anything
-        history.push(`/${document.querySelector(`[name=characterDelete]`).value}/character`):
-        history.push("/character")
+        CharacterRepository.delete(document.querySelector(`[name=characterDelete]`).value).then(() => {
+            document.querySelector(`[name=characterDelete]`).value !== characterId ? //throws a big error if it can't find anything
+                history.push(`/${document.querySelector(`[name=characterDelete]`).value}/character`) :
+                history.push("/character")
+            syncCharacters()
+        })
+
     }
 
     return (
@@ -51,7 +54,7 @@ export const Character = () => {
                             onClick={deleteCharacter}
                             className="btn btn-primary"> Submit </button>
                     </section>
-                    <CreateCharacter refresh={setCharacters}/>
+                    <CreateCharacter refresh={setCharacters} />
 
                 </section>
                 {JSON.stringify(currentCharacter, null, 4)}

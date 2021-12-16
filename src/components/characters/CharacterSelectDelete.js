@@ -2,7 +2,7 @@ import react, { useEffect, useState } from "react";
 
 
 export const CharacterSelectDelete = ({ characters, deleter }) => {
-    const [charList, setCharList] = useState()
+    const [charList, setCharList] = useState([])
     useEffect(() => { setCharList(characters) }, [characters])
     return <>
         <select defaultValue=""
@@ -13,7 +13,7 @@ export const CharacterSelectDelete = ({ characters, deleter }) => {
                 Select a character {deleter && "to delete"}
             </option>
             {
-                characters.map(o => <option key={o.id} value={o.id}>{o.name}</option>)
+                charList.map(o => <option key={o.id} value={o.id}>{o.name}</option>)
             }
         </select>
     </>
