@@ -4,28 +4,44 @@ import { SkillDetails } from "./SkillDetails"
 import SkillsRepository from "../../repositories/SkillsRepository";
 import LevelRepository from "../../repositories/LevelRepository";
 import "./CharacterSelect.css"
+import { SkillColumn } from "./SkillColumn";
 
 export const Skills = () => {
     const [skills, setSkills] = useState([])
     const { characterId } = useParams()
     const [levels, setLevels] = useState([])
+    const [classSkills, setClassSkills] = useState([])
+    const [characterSkills, setCharacterSkills] = useState([])
 
-
+    const syncLevels = () => {
+        LevelRepository.getComplicated(parseInt(characterId)).then(setLevels)
+    }
+    const syncClassSkills = () => {
+        setClassSkills(
+            levels.map(level => level.class.classSkills)
+        )
+    }
+    const syncCharacterSkills = () => {
+        SkillsRepository.getCharacterSkills(setCharacterSkills)
+    }
 
     useEffect(() => {
         SkillsRepository.getAll().then(setSkills)
-        LevelRepository.getComplicated(characterId).then(setLevels)
+        syncLevels()
+        syncCharacterSkills()
     }, [])
+    useEffect(()=> {
+        syncClassSkills()
+    },[levels])
 
     return (
         <>
             <article>
                 <h1>Skills</h1>
-                <h2>Currently Selected character is {"placeholder to call a reference to the current character. should be changed through filepath"}</h2>
                 <section className="flexside">
                     <section className="flexdown">
-                        <h3>Level <br /> Row</h3>
-                        <h3>Available <br />skill <br />points</h3>
+                        <h3>Level</h3>
+                        <h3>Points</h3>
                         <div className="flexside">
                             <div className="detailColumn1">Skill name</div>
                             <div className="detailColumn2">Total</div>
@@ -34,31 +50,12 @@ export const Skills = () => {
                             <div className="detailColumn5">Max Ranks</div>
                         </div>
                         <div className="flexdown">
-                            {skills.map(skill => <SkillDetails skill={skill} />)}
+                            {skills.map(skill => <SkillDetails skill={skill} characterSkills={characterSkills} levels={levels} />)}
                         </div>
                     </section>
                     <section className="flexsidescroll">
-                        <div className="flexdown">
-                            <h3>Level<br />#</h3>
-                            <h3>Skill points <br />with <br />live updates</h3>
-                            <h3>double space <br />for consistency</h3>
-                            <h3>Column of skills. All 3 of these are going to be in an indiviudal element that will map through vertically, then that element will be mapped horizonally for multiple levels</h3>
-                        </div>
-                        <div className="flexdown">
-                            <h3>Level<br />#</h3>
-                            <h3>Skill points <br />with <br />live updates</h3>
-                            <h3>double space <br />for consistency</h3>
-                            <h3>Column of skills. All 3 of these are going to be in an indiviudal element that will map through vertically, then that element will be mapped horizonally for multiple levels</h3>
-                        </div>
-                        <div className="flexdown">
-                            <h3>Level<br />#</h3>
-                            <h3>Skill points <br />with <br />live updates</h3>
-                            <h3>double space <br />for consistency</h3>
-                            <h3>Column of skills. All 3 of these are going to be in an indiviudal element that will map through vertically, then that element will be mapped horizonally for multiple levels</h3>
-                        </div>
-
+                        {levels.map(levell=> <SkillColumn level={levell} classSkills={classSkills[levell.characterLevel-1]} updater={syncLevels}/>)}
                     </section>
-
                 </section>
             </article>
         </>
