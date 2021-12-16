@@ -1,8 +1,17 @@
-import react from "react";
+import react, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import LevelRepository from "../../repositories/LevelRepository";
 import "./CharacterSelect.css"
+import { LevelRow } from "./LevelRow";
 
 export const Levels = () => {
+    const [levelList, setLevelList] = useState([])
+    const {characterId} = useParams()
 
+    useEffect(() => { LevelRepository.getAll(characterId).then(setLevelList) }, [])
+    const syncLevels = () => {
+        LevelRepository.getAll(characterId).then(setLevelList)
+    }
 
     return (
         <>
@@ -10,10 +19,18 @@ export const Levels = () => {
                 <h1>Levels</h1>
                 <section className="flexside">
                     <section className="flexdown">
-                        <h3>For initial character level. Has a button on the right to add 2nd level, if no second level exists</h3>
-                        <h3>placeholder for subsequent character levels. has button for add and delete levels if the current max level</h3>
+                        <div className="flexside">
+                            <div className="levelgridColumn1">Level:</div>
+                            <div className="levelgridColumn2">Class:</div>
+                            <div className="levelgridColumn3">HD</div>
+                            <div className="levelgridColumn4">Skill Points</div>
+                            <div className="levelgridColumn5">HP Total</div>
+                        </div>
+                        {levelList.map(level =>{
+                            return <LevelRow level={level} updater={syncLevels} characterId={characterId} last={levelList.length}/>
+                        })}
                     </section>
-                    <h3>placeholder for special class UI elements</h3>
+                    <h3>special</h3>
                 </section>
             </article>
         </>

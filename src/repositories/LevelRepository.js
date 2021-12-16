@@ -17,11 +17,30 @@ import SkillsRepository from "./SkillsRepository"
 //     return animal
 // }
 
+const expandClassSkills = ( level, classSkills ) => {
+        classSkills = classSkills.sort((a,b) => a.skillId - b.skillId) //need to make sure that the array is in skill order for future iteration
+        level.class.classSkills = classSkills
+        return level
+    }
+
+const addComplications = (level) => {
+    SkillsRepository.getAll().then(res => {
+        const skills = res
+        skills.forEach(skill =>
+            SkillsRepository.addLevelSkills({ //creates the objects to track a given levels allocation of skill points
+                skillId: skill.id,
+                levelId: level.id,
+                points: 0
+            }
+            ))
+    })
+}
+
 export default {
     async get(id) {
         return await fetchIt(`${Settings.remoteURL}/levels/${id}?/_embed=classLevels&_expand=classes`)
             .then(res => res)
-            }
+    }
     ,
     // async searchByName(query) {
     //     const users = await OwnerRepository.getAll() //copied the extra code for expansion from get and getall to make sure I could get the full info in the search
@@ -38,25 +57,49 @@ export default {
     async delete(id) {
         return await fetchIt(`${Settings.remoteURL}/levels/${id}`, "DELETE")
     },
-    async getAll(playerId) {
-        const characters = await fetchIt(`${Settings.remoteURL}/levels`)
+    async getAll(characterId) {
+        return await fetchIt(`${Settings.remoteURL}/levels?characterId=${characterId}`)
     },
-    async addLevel(character, level) {
+    async getClasses() {
+        return await fetchIt(`${Settings.remoteURL}/classes`)
+    },
+    async addLevel(characterId, level) {
         const newLevel = {
-            characterId: character,
+            characterId: characterId,
             classId: 0,
             characterLevel: level,
-            statBoost: (level%4 === 0),
+            statBoost: (level % 4 === 0),
             stat: "",
-            featAdd: (level === 1 || level%3 === 0),
-            featId: 0
+            featAdd: (level === 1 || level % 3 === 0),
+            featId: 0,
+            HDRoll: 0
         }
         return await fetchIt(
             `${Settings.remoteURL}/levels`,
             "POST",
             JSON.stringify(newLevel)
+        ).then(level => {
+            addComplications(level)
+            return level
+        })
+    },
+    async updateLevel(updatedLevel) {
+        return await fetchIt(
+            `${Settings.remoteURL}/levels/${updatedLevel.id}`,
+            "PUT",
+            JSON.stringify(updatedLevel)
         )
     },
+    async getComplicated(id) {
+        
+        return await fetchIt(`${Settings.remoteURL}/levels?characterId=${id}&_embed=levelSkills&_expand=class`)
+            .then(levels => {
+                levels.forEach(level => {
+                    SkillsRepository.getClassSkills(level.classId).then(classSkills => expandClassSkills(level, classSkills))})
+                return levels
+            })
+    }
+
     // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers
     //     return await fetchIt(
     //         `${Settings.remoteURL}/animalCaretakers`,

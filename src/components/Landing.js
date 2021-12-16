@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 
 export const Landing = () => {
     return <>
-        <Route exact path="/" >
+        <Route exact path="/:characterId(/d+)" >
             <br />
             <br />
             <br />

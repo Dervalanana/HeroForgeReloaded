@@ -29,12 +29,21 @@ const expandCharacterTraits = (character, classes, skills, feats) => {
     return character
 }
 
+const addComplications = (character) => {//taken from create character module. keeping the construction to the repos where I can
+    const charId = character.id
+    SkillsRepository.getAll().then(skillRes => {
+        const skills = skillRes
+        skills.forEach(skill => SkillsRepository.addCharacterSkills({ skillId: skill.id, characterId: charId, bonus: 0 })) //generates the objects to track a characters total points for a given skill
+        LevelRepository.addLevel(charId, 1)
+    })
+}
+
 export default {
     async get(id) {
-        return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels`)
+        return await fetchIt(`${Settings.remoteURL}/characters/${id}`)
             .then(res => res)
     },
-    async getWithRace(id) {
+    async getWithLevelAndRace(id) {
         return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels&_expand=race`)
             .then(res => res)
     }
@@ -49,7 +58,7 @@ export default {
             })
     }
     ,
-    async getRace(){
+    async getRaces() {
         return await fetchIt(`${Settings.remoteURL}/races`)
             .then(res => res)
     },
@@ -82,6 +91,10 @@ export default {
             `${Settings.remoteURL}/characters`,
             "POST",
             JSON.stringify(newCharacter)
+        ).then(character => {
+            addComplications(character)
+            return character
+        }
         )
     },
     async updateCharacter(updatedCharacter) {

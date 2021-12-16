@@ -4,7 +4,7 @@ import CharacterRepository from "../../repositories/CharacterRepository";
 
 export const RaceSelect = ({character, trackChar}) => {
     const [raceList, setRaceList] = useState()
-    useEffect(() => { CharacterRepository.getRace().then(setRaceList) }, [])
+    useEffect(() => { CharacterRepository.getRaces().then(setRaceList) }, [])
     const changeRace = (e) => {
         const copy = {...character}
         copy.raceId = parseInt(e.target.value)

@@ -12,3 +12,8 @@ section, h3{
     display: flex;
     overflow-x: scroll;
 }
+.detailColumn1{width:8rem}
+.detailColumn2{width:3rem}
+.detailColumn3{width:3rem}
+.detailColumn4{width:3rem}
+.detailColumn5{width:3rem}

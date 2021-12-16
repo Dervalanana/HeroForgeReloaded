@@ -7,7 +7,7 @@ export const StatBlock = ({ chara, trackChar }) => {
     const [race, setRace] = useState({})
 
     useEffect(() => {
-        return CharacterRepository.getWithRace(chara.id).then(res => setRace(res.race))
+        return CharacterRepository.getWithLevelAndRace(chara.id).then(res => setRace(res.race))
     }, [chara])
 
     return <>
