@@ -10,9 +10,9 @@ export const RaceAndStats = () => {
     const[character, setChara] = useState({})
     const {characterId} = useParams()
     useEffect(() => {
-        CharacterRepository.get(characterId).then(setChara)
+        trackChar()
     },[])
-    const trackChar = () => CharacterRepository.getWithRace(characterId).then(setChara)
+    const trackChar = () => CharacterRepository.get(characterId).then(setChara)
 
     return(
         <>

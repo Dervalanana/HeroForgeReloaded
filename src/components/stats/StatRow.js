@@ -13,7 +13,7 @@ export const StatRow = ({stat, chara, trackChar, race}) => {
     }
     useEffect(()=>{
         //if the race changes for this stat, in the racial bonus slot, display +2 if it matches the bonus, -2 if the matches the penalty, or nothing if neither applies
-        shortStat===race?.racialBonus ? setRacialMod("+2") :shortStat===race?.racialPenalty ? setRacialMod("-2"): setRacialMod("+0")
+        shortStat===race?.racialBonus ? setRacialMod("+2") :shortStat===race?.racialPenalty ? setRacialMod("-2"): setRacialMod("+0") 
         shortStat===race?.racialBonus ? setTotal(chara[shortStat]+2) :shortStat===race?.racialPenalty ? setTotal(chara[shortStat]-2): setTotal(chara[shortStat]+0)
     },[race, chara])
     useEffect(()=>{

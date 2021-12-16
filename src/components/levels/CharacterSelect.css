@@ -8,3 +8,18 @@ section, h3{
 .flexside{
     display: flex
 }
+.levelgridColumn1{
+    width: 3rem
+}
+.levelgridColumn2{
+    width: 10rem
+}
+.levelgridColumn3{
+    width: 2rem
+}
+.levelgridColumn4{
+    width: 4rem
+}
+.levelgridColumn5{
+    width: 15rem
+}
