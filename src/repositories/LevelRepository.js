@@ -17,11 +17,11 @@ import SkillsRepository from "./SkillsRepository"
 //     return animal
 // }
 
-const expandClassSkills = ( level, classSkills ) => {
-        classSkills = classSkills.sort((a,b) => a.skillId - b.skillId) //need to make sure that the array is in skill order for future iteration
-        level.class.classSkills = classSkills
-        return level
-    }
+// const expandClassSkills = (level, classSkills) => {
+//     classSkills = classSkills.sort((a, b) => a.skillId - b.skillId) //need to make sure that the array is in skill order for future iteration
+//     level.class.classSkills = classSkills
+//     return level
+// }
 
 const addComplications = (level) => {
     SkillsRepository.getAll().then(res => {
@@ -91,13 +91,13 @@ export default {
         )
     },
     async getComplicated(id) {
-        
-        return await fetchIt(`${Settings.remoteURL}/levels?characterId=${id}&_embed=levelSkills&_expand=class`)
-            .then(levels => {
-                levels.forEach(level => {
-                    SkillsRepository.getClassSkills(level.classId).then(classSkills => expandClassSkills(level, classSkills))})
-                return levels
-            })
+        let levels = await fetchIt(`${Settings.remoteURL}/levels?characterId=${id}&_embed=levelSkills&_expand=class`)
+        const classSkills = await Promise.all(levels.map(level => SkillsRepository.getClassSkills(level.classId).then(res=> res)))
+        classSkills.forEach(chunk => chunk.sort((a, b) => a.skillId - b.skillId)) //need to make sure that the array is in skill order for future iteration
+        levels.forEach(level =>
+            {level.class.classSkills = classSkills.find(classSkill => classSkill[0].classId === level.class.id)}//all elements of a classSkills subarray share the same classId
+        )
+        return levels
     }
 
     // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers

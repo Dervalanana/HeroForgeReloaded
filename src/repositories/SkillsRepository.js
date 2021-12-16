@@ -47,6 +47,9 @@ export default {
             JSON.stringify(characterSkill)
         )
     },
+    async getCharacterSkills(id){
+        return await fetchIt(`${Settings.remoteURL}/characterSkills/${id}`)
+    },
     async addLevelSkills(levelSkill) {
         return await fetchIt(
             `${Settings.remoteURL}/levelSkills`,
@@ -59,6 +62,13 @@ export default {
             `${Settings.remoteURL}/classSkills`,
             "POST",
             JSON.stringify(classSkill)
+        )
+    },
+    async updateLevelSkill(levelSkill) {
+        return await fetchIt(
+            `${Settings.remoteURL}/levelSkills/${levelSkill.id}`,
+            "PUT",
+            JSON.stringify(levelSkill)
         )
     },
     async getClassSkills(id){

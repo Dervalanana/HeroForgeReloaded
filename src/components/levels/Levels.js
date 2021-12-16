@@ -8,9 +8,9 @@ export const Levels = () => {
     const [levelList, setLevelList] = useState([])
     const {characterId} = useParams()
 
-    useEffect(() => { LevelRepository.getAll(characterId).then(setLevelList) }, [])
+    useEffect(() => { LevelRepository.getAll(parseInt(characterId)).then(setLevelList) }, [])
     const syncLevels = () => {
-        LevelRepository.getAll(characterId).then(setLevelList)
+        LevelRepository.getAll(parseInt(characterId)).then(setLevelList)
     }
 
     return (
@@ -27,7 +27,7 @@ export const Levels = () => {
                             <div className="levelgridColumn5">HP Total</div>
                         </div>
                         {levelList.map(level =>{
-                            return <LevelRow level={level} updater={syncLevels} characterId={characterId} last={levelList.length}/>
+                            return <LevelRow level={level} updater={syncLevels} characterId={parseInt(characterId)} last={levelList.length}/>
                         })}
                     </section>
                     <h3>special</h3>
