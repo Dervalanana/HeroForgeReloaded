@@ -17,6 +17,12 @@ import SkillsRepository from "./SkillsRepository"
 //     return animal
 // }
 
+const expandClassSkills = ( level, classSkills ) => {
+        classSkills = classSkills.sort((a,b) => a.skillId - b.skillId) //need to make sure that the array is in skill order for future iteration
+        level.class.classSkills = classSkills
+        return level
+    }
+
 const addComplications = (level) => {
     SkillsRepository.getAll().then(res => {
         const skills = res
@@ -83,7 +89,17 @@ export default {
             "PUT",
             JSON.stringify(updatedLevel)
         )
+    },
+    async getComplicated(id) {
+        
+        return await fetchIt(`${Settings.remoteURL}/levels?characterId=${id}&_embed=levelSkills&_expand=class`)
+            .then(levels => {
+                levels.forEach(level => {
+                    SkillsRepository.getClassSkills(level.classId).then(classSkills => expandClassSkills(level, classSkills))})
+                return levels
+            })
     }
+
     // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers
     //     return await fetchIt(
     //         `${Settings.remoteURL}/animalCaretakers`,

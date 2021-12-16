@@ -54,6 +54,16 @@ export default {
             JSON.stringify(levelSkill)
         )
     },
+    async addClassSkills(classSkill) {
+        return await fetchIt(
+            `${Settings.remoteURL}/classSkills`,
+            "POST",
+            JSON.stringify(classSkill)
+        )
+    },
+    async getClassSkills(id){
+        return await fetchIt(`${Settings.remoteURL}/classSkills?classId=${id}`)
+    }
 
 
     // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers

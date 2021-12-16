@@ -29,9 +29,10 @@ export const Character = () => {
         complicateCharacter(document.querySelector(`[name=characterSelect]`).value)
     }
     const deleteCharacter = () => {
-        CharacterRepository.delete(document.querySelector(`[name=characterDelete]`).value).then(() => {
-            document.querySelector(`[name=characterDelete]`).value !== characterId ? //throws a big error if it can't find anything
-                history.push(`/${document.querySelector(`[name=characterDelete]`).value}/character`) :
+        const holder = document.querySelector(`[name=characterDelete]`).value
+        CharacterRepository.delete(parseInt(holder)).then(() => {
+            holder !== characterId ? //throws a big error if it can't find anything
+                history.push(`/${characterId}/character`) :
                 history.push("/character")
             syncCharacters()
         })
