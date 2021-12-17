@@ -21,21 +21,21 @@ export const LevelRow = ({ level, updater, characterId, last }) => {
     const roll = () => {
         const copy = { ...level }
         copy.HDRoll = Math.ceil(Math.random() * activeClass.HD)
-        LevelRepository.updateLevel(copy).then(updater())
+        LevelRepository.updateLevel(copy).then(updater)
     } //
 
     const updateClass = (e) => {
         const copy = { ...level }
         copy.HDRoll = 0
         copy.classId = parseInt(e.target.value)
-        LevelRepository.updateLevel(copy).then(updater())
+        LevelRepository.updateLevel(copy).then(updater)
     }
 
     const deleteLevel = () => { 
-        LevelRepository.delete(level.id).then(()=>updater())
+        LevelRepository.delete(level.id).then(updater)
     }
     const addLevel = () => {
-        LevelRepository.addLevel(characterId, (level.characterLevel + 1)).then(()=>updater())
+        LevelRepository.addLevel(characterId, (level.characterLevel + 1)).then(updater)
     }
 
 

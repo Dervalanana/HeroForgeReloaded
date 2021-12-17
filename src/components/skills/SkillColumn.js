@@ -23,14 +23,13 @@ export const SkillColumn = ({ level, classSkills, updater }) => {
     const spendPoints = (evt,levelSkill) => {
         const copy = { ...levelSkill }
         copy.points = parseInt(evt.target.value)
-        SkillsRepository.updateLevelSkill(copy)
-        updater()
+        SkillsRepository.updateLevelSkill(copy).then(updater)
     }
 
     const calcSpentPoints = () => {
         let spent = 0
         levelSkills.forEach(levelSkill => {
-            spent += parseInt(document.querySelector(`#classLevel--${level.id}--skill${levelSkill.skillId}`)?.value)
+            spent += parseInt(document.querySelector(`#classLevel--${level.characterLevel}--skill${levelSkill.skillId}`)?.value)
         })
         setSpentPoints(spent)
     }
@@ -39,7 +38,7 @@ export const SkillColumn = ({ level, classSkills, updater }) => {
         <div className="flexdown">
             <h3>{level.characterLevel}</h3>
             <h3>{skillPointsMax - spentPoints}</h3>
-            <input className="classSkill"/>
+            <div className="classSkillBlank"/>
             {levelSkills?.map(levelSkill =>
                 <input id={`classLevel--${level.characterLevel}--skill${levelSkill.skillId}`}
                     defaultValue={levelSkill.points} 

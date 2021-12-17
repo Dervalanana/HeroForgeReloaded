@@ -35,6 +35,12 @@ section, h3{
     height: 5rem;
     font-size: 24px;
 }
+.classSkillBlank{
+    color:greenyellow;
+    background-color: white;
+    height: 5rem;
+    font-size: 24px;
+}
 
 .detailColumn{
     height: 5rem;
