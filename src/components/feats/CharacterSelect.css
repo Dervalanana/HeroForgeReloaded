@@ -12,3 +12,30 @@ section, h3{
     display: flex;
     overflow-x: scroll;
 }
+.detailColumn1{
+    width:8rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;}
+.detailColumn2{
+    width:3rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;}
+.crossClassSkill{
+    color:red;
+    background-color: black;
+    height: 5rem;
+    font-size: 24px;
+}
+.classSkill{
+    color:greenyellow;
+    background-color: black;
+    height: 5rem;
+    font-size: 24px;
+}
+
+.detailColumn{
+    height: 5rem;
+}

@@ -1,7 +1,21 @@
-import react from "react";
+import react, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import LevelRepository from "../../repositories/LevelRepository";
 import "./CharacterSelect.css"
+import { FeatDetails } from "./FeatDetails";
+import { FeatColumn } from "./FeatColumn";
 
 export const Feats = () => {
+    const[levels, setLevels] = useState([])
+    const[feats, setFeats] = useState([])
+    const {characterId} = useParams()
+    const syncLevels = () => {
+        LevelRepository.getComplicated(parseInt(characterId)).then(setLevels)
+    }
+    useEffect(()=>{
+        syncLevels()
+        LevelRepository.getFeats().then(setFeats)
+    },[])
 
 
     return(
@@ -10,43 +24,16 @@ export const Feats = () => {
                 <h1>Feats</h1>
                 <section className="flexside">
                     <section className="flexdown">
-                        <h3>Temporal <br/> Row</h3>
+                        <h3>Acquisition</h3>
                         <div className="flexside">
-                            <h3>Feat name</h3>
-                            <h3>Pre-reqs</h3>
-                            <h3>Short Desc (one line with expansion view) ask about relating heights across separate elements. or linking the scroll</h3>
+                            <div className="detailColumn1">Feat Name</div>
+                            <div className="detailColumn1">Pre-requisites</div>
+                            <div className="detailColumn1">Short Description</div>
                         </div>
+                        {feats.map(feat => <FeatDetails feat={feat} feats={feats}/>)}
                     </section>
                     <section className="flexsidescroll">
-                        <div className="flexdown">
-                            <h3>Temporal<br/>Description</h3>
-                            <h3>radio</h3>
-                            <h3>buttons</h3>
-                            <h3>for</h3>
-                            <h3>days</h3>
-                        </div>
-                        <div className="flexdown">
-                            <h3>Temporal<br/>Description</h3>
-                            <h3>radio</h3>
-                            <h3>buttons</h3>
-                            <h3>for</h3>
-                            <h3>days</h3>
-                        </div>
-                        <div className="flexdown">
-                            <h3>Temporal<br/>Description</h3>
-                            <h3>radio</h3>
-                            <h3>buttons</h3>
-                            <h3>for</h3>
-                            <h3>days</h3>
-                        </div>
-                        <div className="flexdown">
-                            <h3>Temporal<br/>Description</h3>
-                            <h3>radio</h3>
-                            <h3>buttons</h3>
-                            <h3>for</h3>
-                            <h3>days</h3>
-                        </div>
-                        
+                        {levels.map(level => <FeatColumn feats={feats} level={level} updater={syncLevels}/>)}                        
                     </section>
 
                 </section>
