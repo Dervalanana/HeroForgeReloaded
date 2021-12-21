@@ -15,7 +15,7 @@ export const FeatColumn = ({ level, feats, updater }) => {
             }
             )])
         }
-        if (level.classLevel.featAdd) {
+        if (level.classLevel?.featAdd) {
             setColumn2([<div className="sidewaysText">{level.class.name} {level.classLevel.level}</div>,
                 feats.map(feat => {
                 return <input name={`level${level.class.name}${level.classLevel.level}`} checked={feat.id === level.classfeatId} type="radio" onChange={evt => updateClassLevelFeat(evt, feat.id)} />

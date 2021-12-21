@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth";
@@ -43,7 +43,7 @@ export const Character = () => {
         <>
             <article>
                 <h1>Character Selection</h1>
-                {currentCharacter ? <h2>Currently Selected character is {currentCharacter.name}</h2> : <h2>you gotta select a character if you want to go anywhere other than here or the landing page</h2>}
+                {currentCharacter ? <h2>Currently viewing {currentCharacter.name}</h2> : <h2>you gotta select a character if you want to go anywhere other than here or the landing page</h2>}
                 <section className="flexdown">
                     <section className="flexside">
                         <CharacterSelectDelete characters={characters} />
@@ -57,6 +57,11 @@ export const Character = () => {
                     </section>
                     <CreateCharacter refresh={setCharacters} />
 
+                </section>
+                <section>
+                    <div>Character Name:{currentCharacter?.name}</div>
+                    <div>experience: {currentCharacter?.xp}</div>
+                    <div>campaign: {currentCharacter?.campaign}</div>
                 </section>
                 {JSON.stringify(currentCharacter, null, 4)}
             </article>

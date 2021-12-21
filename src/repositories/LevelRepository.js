@@ -75,6 +75,8 @@ export default {
             stat: "",
             featAdd: (level === 1 || level % 3 === 0),
             featId: 0,
+            classfeatAdd: false,
+            classfeatId:0,
             HDRoll: 0
         }
         return await fetchIt(
@@ -102,7 +104,7 @@ export default {
         let importantLevels = [] //to hold the class levels we want to keep
         const classes = new Set() //creates a set
         levels.forEach(level => classes.add(parseInt(level.classId))) //adds the ID for one of each unique class to the set
-        classes.forEach(classId => importantLevels.push(classLevels?.filter(classLevel => classId === classLevel.classId))) //pushes an array of each classes's class level
+        classes.forEach(classId => importantLevels.push(classLevels.filter(classLevel => classId === classLevel.classId))) //pushes an array of each classes's class level
         levels.forEach(level => { //take the level
             importantLevels = importantLevels.map(importantLevel => {
                 if (importantLevel[0]?.classId === level?.classId) { //if the lowest available class level and our current level share an id
@@ -117,7 +119,7 @@ export default {
         )
         const classSkills = await Promise.all(levels.map(level => SkillsRepository.getClassSkills(level.classId).then(res => res)))
         classSkills.forEach(chunk => chunk.sort((a, b) => a.skillId - b.skillId)) //need to make sure that the array is in skill order for future iteration
-        levels.forEach(level => { level.class.classSkills = classSkills.find(classSkill => classSkill[0].classId === level.class.id) }//all elements of a classSkills subarray share the same classId
+        levels.forEach(level => { level.class.classSkills = classSkills.find(classSkill => classSkill[0]?.classId === level.class.id) }//all elements of a classSkills subarray share the same classId
         )
         return levels
     }

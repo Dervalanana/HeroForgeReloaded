@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LevelRepository from "../../repositories/LevelRepository";
 import "./CharacterSelect.css"
@@ -14,7 +14,7 @@ export const Feats = () => {
     }
     useEffect(()=>{
         syncLevels()
-        LevelRepository.getFeats().then(setFeats)
+        LevelRepository.getFeats().then(res => setFeats(res.slice(1)))//removes the placeholder feat that prevents chain deletion of levels
     },[])
 
 

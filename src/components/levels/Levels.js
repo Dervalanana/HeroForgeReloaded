@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LevelRepository from "../../repositories/LevelRepository";
 import "./CharacterSelect.css"

@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 import "./CharacterSelect.css"
 
 export const Sheets = () => {

@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CharacterRepository from "../../repositories/CharacterRepository";
 
 
