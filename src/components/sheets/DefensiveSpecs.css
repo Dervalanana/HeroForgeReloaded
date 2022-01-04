@@ -1,0 +1,45 @@
+.TotalHP{
+    position:absolute;
+}
+.Movement{
+    position: absolute;
+    left: 545px;
+}
+.TotalAC{
+    position: relative;
+    top: 37px;
+}
+.ACBar{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 35.5px;
+    left: 64px;
+}
+.ACComponent{
+    margin-left: 59.5px;
+}
+.TouchAC{
+    position:absolute;
+    top:105px
+}
+.FlatFootedAC{
+    position:absolute;
+    top:105px;
+    left: 178px;
+}
+.Initiative{
+    position: absolute;
+    top: 158px;
+    left: 51px;
+}
+.DexInit{
+    position: absolute;
+    top: 158px;
+    left: 110px;
+}
+.MiscInit{
+    position: absolute;
+    top: 158px;
+    left: 175px;
+}

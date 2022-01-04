@@ -9,16 +9,20 @@ export const FeatColumn = ({ level, feats, updater }) => {
     const [column2, setColumn2] = useState([])
     const levelClassPair = () => {
         if (level.featAdd) {
-            setColumn1([<div className="sidewaysText">Level {level.characterLevel}</div>,
+            setColumn1([<div className="sidewaysText">Level {level.characterLevel}</div>,<div className="detailColumn3"> </div>,
             feats.map(feat => {
-                return <input name={`level${level.characterLevel}`} checked={feat.id === level.featId} type="radio" onChange={evt => updateLevelFeat(evt, feat.id)} />
+                return <div className="detailColumn3"> 
+                    <input name={`level${level.characterLevel}`} checked={feat.id === level.featId} type="radio" onChange={evt => updateLevelFeat(evt, feat.id)} />
+                </div>
             }
             )])
         }
         if (level.classLevel?.featAdd) {
-            setColumn2([<div className="sidewaysText">{level.class.name} {level.classLevel.level}</div>,
+            setColumn2([<div className="sidewaysText">{level.class.name} {level.classLevel.level}</div>,<div className="detailColumn3"> </div>,
                 feats.map(feat => {
-                return <input name={`level${level.class.name}${level.classLevel.level}`} checked={feat.id === level.classfeatId} type="radio" onChange={evt => updateClassLevelFeat(evt, feat.id)} />
+                return <div className="detailColumn3">
+                    <input name={`level${level.class.name}${level.classLevel.level}`} checked={feat.id === level.classfeatId} type="radio" onChange={evt => updateClassLevelFeat(evt, feat.id)} />
+                </div>
             })])
         }
     }

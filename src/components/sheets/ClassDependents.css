@@ -1,0 +1,105 @@
+.BAB{
+    position: absolute;
+    top: 107px;
+    left: 90px;
+}
+.FortTotal{
+    position:absolute;
+    top:0px;
+    left:10px;
+}
+.FortBase{
+    position:absolute;
+    top:0px;
+    left:64px;
+}
+.FortAbility{
+    position:absolute;
+    top:0px;
+    left:117px;
+}
+.FortMagic{
+    position:absolute;
+    top:0px;
+    left:170px;
+}
+.FortMisc{
+    position: absolute;
+    top: 0px;
+    left: 223px;
+}
+.RefTotal{
+    position:absolute;
+    top:30px;
+    left:10px;
+}
+.RefBase{
+    position:absolute;
+    top:30px;
+    left:64px;
+}
+.RefAbility{
+    position:absolute;
+    top:30px;
+    left:117px;
+}
+.RefMagic{
+    position:absolute;
+    top:30px;
+    left:170px;
+}
+.RefMisc{
+    position: absolute;
+    top:30px;
+    left: 223px;
+}
+.WillTotal{
+    position:absolute;
+    top:60px;
+    left:10px;
+}
+.WillBase{
+    position:absolute;
+    top:60px;
+    left:64px;
+}
+.WillAbility{
+    position:absolute;
+    top:60px;
+    left:117px;
+}
+.WillMagic{
+    position:absolute;
+    top:60px;
+    left:170px;
+}
+.WillMisc{
+    position: absolute;
+    top: 60px;
+    left: 223px;
+}
+.GrappleTotal{
+    position:absolute;
+    top:160px;
+    left:0px;
+}
+.GrappleBase{
+    position:absolute;
+    top:160px;
+    left:95px;
+}
+.GrappleAbility{
+    position:absolute;
+    top:160px;
+    left:180px;
+}
+.GrappleSize{
+    position:absolute;
+    top:160px;
+    left:258px;
+}
+.GrappleMisc{
+    position:absolute;
+    top:160px;
+    left:335px;
+}

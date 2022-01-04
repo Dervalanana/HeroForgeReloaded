@@ -10,7 +10,7 @@ export const SkillColumn = ({ level, classSkills, updater }) => {
 
     useEffect(() => {
         CharacterRepository.get(level.characterId).then(res => setSkillPointsMax(
-            Math.floor((res["int"] - 10) / 2) + level?.class?.skillPoints))
+            (level.characterLevel===1) ? (Math.floor((res["int"] - 10) / 2) + level?.class?.skillPoints)*4 : (Math.floor((res["int"] - 10) / 2) + level?.class?.skillPoints)))
         setClassSkills(classSkills)
         setLevelSkills(level.levelSkills.sort((a,b)=> a.skillId - b.skillId))
         calcSpentPoints()
@@ -43,7 +43,7 @@ export const SkillColumn = ({ level, classSkills, updater }) => {
                 <input id={`classLevel--${level.characterLevel}--skill${levelSkill.skillId}`}
                     defaultValue={levelSkill.points} 
                     onBlur={(evt)=>spendPoints(evt,levelSkill)} 
-                    className={classsSkills&&classsSkills[levelSkill.skillId]?.classSkillProf?"classSkill":"crossClassSkill"}/>)}
+                    className={classsSkills&&classsSkills[levelSkill.skillId-1]?.classSkillProf?"classSkill":"crossClassSkill"}/>)}
         </div>
     </>
 }

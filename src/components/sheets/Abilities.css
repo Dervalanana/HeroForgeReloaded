@@ -1,0 +1,11 @@
+.Ability{
+    position:relative;
+}
+.AbilityMod{
+    position: relative;
+    top: -21px;
+    left: 57px;
+}
+.AbilityRow{
+    height: 35.5px
+}

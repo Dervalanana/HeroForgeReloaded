@@ -1,0 +1,43 @@
+.classSkillCheck{
+    position: relative;
+    margin-left: 0px;
+    margin-top: 0px;
+    top:5px;
+    left:0px;
+    width: 21px;
+}
+.SkillTotal{
+    position: relative;
+    margin-left: 244px;
+    margin-top: 0px;
+    top:0px;
+    left:0px;
+    width: 21px;
+}
+.SkillAbility{
+    position: relative;
+    margin-left: 32px;
+    margin-top: 0px;
+    top:0px;
+    left:0px;
+    width: 21px;
+}
+.SkillRanks{
+    position: relative;
+    margin-left: 32px;
+    margin-top: 0px;
+    top:0px;
+    left:0px;
+    width: 21px;
+}
+.SkillMisc{
+    position: relative;
+    margin-left: 32px;
+    margin-top: 0px;
+    top:0px;
+    left:0px;
+    width: 21px;
+}
+.flexside{
+    margin-top: 0.39px;
+}

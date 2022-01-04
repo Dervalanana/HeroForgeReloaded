@@ -1,0 +1,60 @@
+section, h3{
+    border: double
+}
+.flexdown{
+    display: flex;
+    flex-flow: column;
+}
+.flexside{
+    display: flex
+}
+.characterSheet{
+    height: 1500px;
+    width: 1200px;
+}
+.CharacterDetails{
+    position: relative;
+    top: 45px;
+    left: 50px;
+}
+.AbilityGrid{
+    position: relative;
+    top: 210px;
+    left: 157px;
+}
+.DefensiveSpecs{
+    position: relative;
+    left: 470.5px;
+    top: -1px;
+}
+.ClassDependents{
+    position: absolute;
+    left: 298px;
+    top: 574px;
+}
+.SkillTable{
+    position: absolute;
+    left: 709px;
+    top: 503px;
+}
+.sheet1Bg{
+    background-image: url("Page1.jpeg");
+    height: 1500px;
+    width: 1200px;
+    background-size:cover
+}
+.sheet2Bg{
+    background-image: url("Page2.jpeg");
+    height: 1500px;
+    width: 1200px;
+    background-size:cover
+}
+.featsAndAbilities{
+    position: relative;
+    top: 702px;
+    left: 380px;
+}
+.specialAbilityRow{
+    margin-top: 1.9px;
+    max-width: 292px;
+}

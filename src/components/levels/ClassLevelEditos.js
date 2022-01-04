@@ -29,7 +29,7 @@ export const ClassLevelEditor = () => {
         const copy = { ...displayedDetails }
         copy.featAdd = document.querySelector("[name=featAdd]").checked
         copy.features = document.querySelector("[name=levelFeatures]").value
-        ClassRepository.updateClassLevel(copy)
+        ClassRepository.updateClassLevel(copy).then(setDisplayedDetails)
     }
 
     return <>
@@ -44,10 +44,11 @@ export const ClassLevelEditor = () => {
             {levels}
         </select>
         <div>details</div>
-        <textarea name="levelFeatures" />
+        <textarea className="chungus" name="levelFeatures" />
         <div>Feat add <input type="checkbox" name="featAdd" /> </div>
         <button type="submit"
             className="btn btn-primary"
             onClick={updateClassLevel}> Update Level </button>
+        <div>{displayedDetails.features}</div>
     </>
 }

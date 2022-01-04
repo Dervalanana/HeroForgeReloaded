@@ -2,6 +2,7 @@ import Settings from "./Settings"
 import { fetchIt } from "./Fetch"
 import useSimpleAuth from "../hooks/ui/useSimpleAuth"
 import SkillsRepository from "./SkillsRepository"
+import ClassRepository from "./ClassRepository"
 
 // const expandAnimalUser = (animal, users) => {
 //     animal.animalOwners = animal.animalOwners.map(ao => {
@@ -42,18 +43,6 @@ export default {
             .then(res => res)
     }
     ,
-    // async searchByName(query) {
-    //     const users = await OwnerRepository.getAll() //copied the extra code for expansion from get and getall to make sure I could get the full info in the search
-    //     const animals = await fetchIt(`${Settings.remoteURL}/animals?_embed=animalOwners&_embed=treatments&_embed=animalCaretakers&_expand=location&name_like=${query}`)
-    //     .then(data => {
-    //         const embedded = data.map(animal => {
-    //             animal = expandAnimalUser(animal, users)
-    //             return animal
-    //         })
-    //         return embedded
-    //     })
-    //     return animals
-    // },
     async delete(id) {
         return await fetchIt(`${Settings.remoteURL}/levels/${id}`, "DELETE")
     },
@@ -102,8 +91,7 @@ export default {
         let levels = await fetchIt(`${Settings.remoteURL}/levels?characterId=${id}&_embed=levelSkills&_expand=class`)
         const classLevels = await fetchIt(`${Settings.remoteURL}/classLevels`) //gets all class levels
         let importantLevels = [] //to hold the class levels we want to keep
-        const classes = new Set() //creates a set
-        levels.forEach(level => classes.add(parseInt(level.classId))) //adds the ID for one of each unique class to the set
+        const classes = await ClassRepository.classFinder(levels)
         classes.forEach(classId => importantLevels.push(classLevels.filter(classLevel => classId === classLevel.classId))) //pushes an array of each classes's class level
         levels.forEach(level => { //take the level
             importantLevels = importantLevels.map(importantLevel => {
@@ -123,19 +111,4 @@ export default {
         )
         return levels
     }
-
-    // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers
-    //     return await fetchIt(
-    //         `${Settings.remoteURL}/animalCaretakers`,
-    //         "POST",
-    //         JSON.stringify(newAnimalCaretaker)
-    //     )
-    // },
-    // async updateAnimal(editedAnimal) {
-    //     return await fetchIt(
-    //         `${Settings.remoteURL}/animals/${editedAnimal.id}`,
-    //         "PUT",
-    //         JSON.stringify(editedAnimal)
-    //     )
-    // }
 }

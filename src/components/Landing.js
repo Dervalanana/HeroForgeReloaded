@@ -7,7 +7,13 @@ export const Landing = () => {
             <br />
             <br />
             <br />
-            Just a placeholder for whatever landing page I decide to implement
+            <img src="https://sites.google.com/site/heroforgeanew/_/rsrc/1414743045374/config/customLogo.gif?revision=6" alt="HFR"/>
+        </Route>
+        <Route exact path="/" >
+            <br />
+            <br />
+            <br />
+            <img src="https://sites.google.com/site/heroforgeanew/_/rsrc/1414743045374/config/customLogo.gif?revision=6" alt="HFR"/>
         </Route>
     </>
 }

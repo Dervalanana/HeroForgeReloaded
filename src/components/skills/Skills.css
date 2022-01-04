@@ -12,30 +12,38 @@ section, h3{
     display: flex;
     overflow-x: scroll;
 }
-.detailColumn1{
+.skillColumn1{
     width:8rem;
     height: 5rem;
     display: flex;
     align-items: center;}
-.detailColumn2{
-    width:3rem;
+.skillColumn2{
+    width:4rem;
     height: 5rem;
     display: flex;
     justify-content: center;
-    align-items: center;}
+    align-items: center;
+    text-align: center;
+}
 .crossClassSkill{
-    color:red;
-    background-color: black;
+    color:rgb(0, 0, 0);
+    background-color: rgb(218, 132, 132);
     height: 5rem;
     font-size: 24px;
 }
 .classSkill{
+    color:rgb(0, 0, 0);
+    background-color: rgb(154, 255, 133);
+    height: 5rem;
+    font-size: 24px;
+}
+.classSkillBlank{
     color:greenyellow;
-    background-color: black;
+    background-color: white;
     height: 5rem;
     font-size: 24px;
 }
 
-.detailColumn{
+.skillColumn{
     height: 5rem;
 }

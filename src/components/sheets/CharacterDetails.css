@@ -1,0 +1,18 @@
+.CharacterName{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.PlayerName{
+    position: absolute;
+    left: 368px;
+}
+.Classes{
+    position: absolute;
+    top: 42px
+}
+.Race{
+    position: absolute;
+    top: 42px;
+    left: 368px;
+}

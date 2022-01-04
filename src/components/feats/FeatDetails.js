@@ -4,12 +4,12 @@ export const FeatDetails = ({feat, feats}) => {
     const preReqString = () => {
         let stringBuilder = ""
         for(const prop in feat){
-            if(prop!=="id"&&prop!=="name"&&prop!=="description"){
+            if(prop!=="id"&&prop!=="name"&&prop!=="description"&&feat[prop]!==0){
                 const [propParser,] = prop.split("PR")
-                stringBuilder+= (feat[prop])? (propParser==="feat" ? `${feats.find(f => f.id === feat[prop]).name}, ` : `${propParser.toUpperCase()} ${feat[prop]}+, `) : ""
+                stringBuilder+= (propParser==="feat" ? `${feats.find(f => f.id === feat[prop]).name}, ` : `${propParser.toUpperCase()} ${feat[prop]}+, `)
             }
         }
-        return stringBuilder
+        if(stringBuilder.length) return stringBuilder.slice(0,-2)
     }
     return <>
         <div className="flexside">

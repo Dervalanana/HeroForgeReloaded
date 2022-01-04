@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { SkillDetails } from "./SkillDetails"
 import SkillsRepository from "../../repositories/SkillsRepository";
 import LevelRepository from "../../repositories/LevelRepository";
-import "./CharacterSelect.css"
+import "./Skills.css"
 import { SkillColumn } from "./SkillColumn";
 
 export const Skills = () => {
@@ -30,6 +30,7 @@ export const Skills = () => {
         syncLevels()
         syncCharacterSkills()
     }, [])
+
     useEffect(()=> {
         syncClassSkills()
     },[levels])
@@ -43,11 +44,11 @@ export const Skills = () => {
                         <h3>Level</h3>
                         <h3>Points</h3>
                         <div className="flexside">
-                            <div className="detailColumn1">Skill name</div>
-                            <div className="detailColumn2">Total</div>
-                            <div className="detailColumn3">Stat</div>
-                            <div className="detailColumn4">Ranks</div>
-                            <div className="detailColumn5">Max Ranks</div>
+                            <div className="skillColumn1">Skill name</div>
+                            <div className="skillColumn2">Total</div>
+                            <div className="skillColumn2">Stat</div>
+                            <div className="skillColumn2">Ranks</div>
+                            <div className="skillColumn2">Max Ranks</div>
                         </div>
                         <div className="flexdown">
                             {skills.map(skill => <SkillDetails skill={skill} characterSkills={characterSkills} levels={levels} />)}

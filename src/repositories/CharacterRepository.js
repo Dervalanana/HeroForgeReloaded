@@ -5,24 +5,10 @@ import SkillsRepository from "./SkillsRepository"
 import LevelRepository from "./LevelRepository"
 import ClassRepository from "./ClassRepository"
 
-// const expandAnimalUser = (animal, users) => {
-//     animal.animalOwners = animal.animalOwners.map(ao => {
-//         ao.user = users.find(user => user.id === ao.userId)
-//         return ao
-//     })
 
-//     animal.animalCaretakers = animal.animalCaretakers.map(caretaker => {
-//         caretaker.user = users.find(user => user.id === caretaker.userId)
-//         return caretaker
-//     })
-
-//     return animal
-const expandCharacterTraits = (character, classes, skills, feats) => {
-    character.levels = character.levels.map(level => {
-        level.class = classes.find(classs => classs.id === level.classId) //attaches the whole of the class information.
-        return level
-    })
-    character.characterSkills = character.characterSkills.map(skill => {
+const expandCharacterTraits = (character, skills, feats) => {
+    LevelRepository.getComplicated(character.id).then(res => character.levels = res)
+    character.characterSkills = character.characterSkills?.map(skill => {
         skill.name = skills.find(skilll => skilll.id === skill.skillId).name //only need the name, because bonus is updated in other modules
         return skill
     })
@@ -50,10 +36,9 @@ export default {
     ,
     async getComplicated(id) {
         const skills = await SkillsRepository.getAll()
-        const classes = await ClassRepository.getAll()
-        return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels&_embed=characterSkills`)
+        return await fetchIt(`${Settings.remoteURL}/characters/${id}?_embed=levels&_embed=characterSkills&_expand=user&_expand=race`)
             .then(character => {
-                character = expandCharacterTraits(character, classes, skills)
+                character = expandCharacterTraits(character, skills)
                 return character
             })
     }

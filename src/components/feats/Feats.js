@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LevelRepository from "../../repositories/LevelRepository";
-import "./CharacterSelect.css"
+import "./Feats.css"
 import { FeatDetails } from "./FeatDetails";
 import { FeatColumn } from "./FeatColumn";
 
@@ -27,8 +27,8 @@ export const Feats = () => {
                         <h3>Acquisition</h3>
                         <div className="flexside">
                             <div className="detailColumn1">Feat Name</div>
-                            <div className="detailColumn1">Pre-requisites</div>
-                            <div className="detailColumn1">Short Description</div>
+                            <div className="detailColumn2">Pre-requisites</div>
+                            <div className="detailColumn3">Short Description</div>
                         </div>
                         {feats.map(feat => <FeatDetails feat={feat} feats={feats}/>)}
                     </section>

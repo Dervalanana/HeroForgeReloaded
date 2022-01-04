@@ -27,21 +27,10 @@ export default {
             "PUT",
             JSON.stringify(updatedClassLevel)
         )
+    },
+    classFinder(levels){
+        const classes = new Set() //creates a set
+        levels?.forEach(level => classes.add(parseInt(level.classId))) //adds the ID for one of each unique class to the set
+        return classes
     }
-
-
-    // async addAnimalCaretaker(newAnimalCaretaker) { //added function to add caretakers
-    //     return await fetchIt(
-    //         `${Settings.remoteURL}/animalCaretakers`,
-    //         "POST",
-    //         JSON.stringify(newAnimalCaretaker)
-    //     )
-    // },
-    // async updateAnimal(editedAnimal) {
-    //     return await fetchIt(
-    //         `${Settings.remoteURL}/animals/${editedAnimal.id}`,
-    //         "PUT",
-    //         JSON.stringify(editedAnimal)
-    //     )
-    // }
 }
