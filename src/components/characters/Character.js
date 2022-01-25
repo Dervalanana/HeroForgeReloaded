@@ -63,6 +63,7 @@ export const Character = () => {
                     <div>experience: {currentCharacter?.xp}</div>
                     <div>campaign: {currentCharacter?.campaign}</div>
                 </section>
+                <pre>{JSON.stringify(currentCharacter,undefined,2)}</pre>
             </article>
         </>
     )

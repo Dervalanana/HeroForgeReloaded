@@ -47,6 +47,7 @@ export default {
         return await fetchIt(`${Settings.remoteURL}/races`)
             .then(res => res)
     },
+    //search example being kept from prior proects code for reference
     // async searchByName(query) {
     //     const users = await OwnerRepository.getAll() //copied the extra code for expansion from get and getall to make sure I could get the full info in the search
     //     const animals = await fetchIt(`${Settings.remoteURL}/animals?_embed=animalOwners&_embed=treatments&_embed=animalCaretakers&_expand=location&name_like=${query}`)
